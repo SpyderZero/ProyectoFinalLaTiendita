@@ -1,0 +1,15 @@
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\bin\Debug\net10.0\ProyectoFinal.exe
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\bin\Debug\net10.0\ProyectoFinal.deps.json
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\bin\Debug\net10.0\ProyectoFinal.runtimeconfig.json
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\bin\Debug\net10.0\ProyectoFinal.dll
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\bin\Debug\net10.0\ProyectoFinal.pdb
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.AssemblyInfoInputs.cache
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.AssemblyInfo.cs
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.csproj.CoreCompileInputs.cache
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.sourcelink.json
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.dll
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\refint\ProyectoFinal.dll
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.pdb
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ProyectoFinal.genruntimeconfig.cache
+C:\Users\Manuel Dominguez\Documents\GitHub\ProyectoFinal\obj\Debug\net10.0\ref\ProyectoFinal.dll
