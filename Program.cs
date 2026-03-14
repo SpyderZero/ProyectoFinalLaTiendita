@@ -11,9 +11,8 @@ namespace prueba
             int selec_menu = 0;
             Dictionary<string, Dictionary<double, int>> Inventario = Inventario_Principal(ruta);
 
-
             do
-            {Console.WriteLine("Sistema de Inventario Colmado Cocoa Lider \n 1. Facturar productos \n 2. Conduce de producto \n 3. Existencia Inventario");
+            {Console.WriteLine("Sistema de Inventario Colmado Cocoa Lider \n 1. Facturar productos \n 2. Conduce de producto \n 3. Existencia Inventario \n 4. Salir");
             selec_menu = int.Parse(Console.ReadLine()!);
             switch (selec_menu)
             {
@@ -43,16 +42,18 @@ namespace prueba
         {
             
             List<string> factura = new List<string>();
+            List<int> Cantidades = new List<int>();
             string nombre = "";
             bool confirm = false;
             double suma = 0;
-
+            int cantidad_compra = 0;
+            int num = 0;
             do
             {
                             int numerador = 0;
                 Dictionary<string, Dictionary<double, int>> dic = Inventario_Principal(ruta);
                 List<string> Lista = dic.Keys.ToList();
-            Console.WriteLine("Elija los productos que desea facturar. . . \n Ingrese # cuando tenga todos los productos: ");
+            Console.WriteLine("Elija los productos que desea facturar. . . \n Presione Enter cuando tenga todos los productos: ");
                 foreach (string producto in Lista)
                 {
                     Console.WriteLine($"// {numerador += 1}. {producto}. . . ${dic[producto].ElementAt(0).Key}");
@@ -66,29 +67,36 @@ namespace prueba
                 {
                     confirm = comprobar(nombre, dic);
                 }
-                if (nombre == "#")
+                if (nombre == "")
                 {
                     
                 }
                 else if (confirm == true && int.TryParse(nombre, out numerador) == false)
                 {    
                     factura.Add(nombre);
+                    Console.WriteLine("Digite la cantidad de compra: \n . . .");
+                    int.TryParse(Console.ReadLine()!, out cantidad_compra);
+                    Cantidades.Add(cantidad_compra);
                 }
                 else if (confirm == true && int.TryParse(nombre, out numerador) == true)
                 {
                     factura.Add(dic.ElementAt(numerador - 1).Key);
+                    Console.WriteLine("Digite la cantidad de compra: \n . . .");
+                    int.TryParse(Console.ReadLine()!, out cantidad_compra);
+                    Cantidades.Add(cantidad_compra);
                 }
                 else if (confirm == false)
                 {
                     Console.WriteLine("Producto no registrado o con existencia en 0, favor de reintentar");
                     continue;
                 }
-                if (nombre != "#") continue;
+                if (nombre != "") continue;
 
                 foreach (string producto in factura)
                 {
-                    if (producto == "#") break;
-                    Console.WriteLine(producto);
+                    if (producto == "") break;
+                    Console.WriteLine($"{Cantidades[num]} -- -- {producto}. . .");
+                    num += 1;
                 }
 
                 Console.WriteLine("¿Desea Facturar estos Productos? \n 1. Si \n 2. No");
@@ -97,26 +105,26 @@ namespace prueba
                 
                 if (completar_factura == "1" || completar_factura == "Si" || completar_factura == "si")
                     {
-                    foreach (string producto in factura)
+                        num = 0;
+                        foreach (string producto in factura)
                         {
                             int cantidad = dic[producto].ElementAt(0).Value;
-                            cantidad -= 1;
+                            cantidad -= Cantidades[num];
                             string datos = $"{producto},{dic[producto].ElementAt(0).Key},{cantidad}";
                             int index = Lista.IndexOf(producto);
                             cambia_linea(datos, ruta, index,0);
-
-                            suma += dic[producto].ElementAt(0).Key;
-                            Console.WriteLine($"{producto} \n ${dic[producto].ElementAt(0).Key}");
-
+                            suma += dic[producto].ElementAt(0).Key * Cantidades[num];
+                            Console.WriteLine($"{producto} {Cantidades[num]}\n ${dic[producto].ElementAt(0).Key}");
+                            num += 1;
                         }
                     Console.WriteLine($"Su total es de: ${suma} \n // ¡Gracias por su compra!");
-                    nombre = "#";
+                    nombre = "";
                     }
                 else if (completar_factura != "2" || completar_factura != "No" || completar_factura == "no")
                     {
-                    nombre = "#";
+                    nombre = "";
                     }
-            }while(nombre != "#");
+            }while(nombre != "");
         }
         static void cambia_linea(string datos, string ruta, int linea_selec, int valor)
         {       
@@ -211,14 +219,27 @@ namespace prueba
         }
         static public void Actualizar_Lista(string ruta)
         {
-                string confirmar = "";       
+                string confirmar = "";
+                int numerador = 0;
+                bool confirm = false;
                 do
                 {
                     Dictionary<string, Dictionary<double, int>> dic = Inventario_Principal(ruta);
                     Console.WriteLine("Indique el producto que desea alterar. . .");
+                    List<string> Lista = dic.Keys.ToList();
+                foreach (string producto in Lista)
+                {
+                    Console.WriteLine($"// {producto} ${dic[producto].ElementAt(0).Key} - - {dic[producto].ElementAt(0).Value} Und. . .");
+                }
                 string nombre = Console.ReadLine()!;
-                bool confirm = comprobar(nombre, dic);
-                List<string> Lista = dic.Keys.ToList();
+                if (int.TryParse(nombre, out numerador) == false)
+                {
+                    confirm = comprobar(nombre, dic);
+                }
+                else if (int.TryParse(nombre, out numerador) == true)
+                {
+                    confirm = comprobar_int(numerador, dic);
+                }
                     int index = Lista.IndexOf(nombre);
                 if (confirm == true)
                 {
@@ -269,10 +290,10 @@ namespace prueba
             do
             {
                 Dictionary<string, Dictionary<double, int>> dic = Inventario_Principal(ruta);
-                Console.WriteLine("Digite el nombre del producto que desea agregar \n . . . Si no desea agregar ningún producto, escriba #");
+                Console.WriteLine("Digite el nombre del producto que desea agregar \n . . . Si no desea agregar ningún producto, Presione Enter");
             string nombre = Console.ReadLine()!;
             bool confirm = comprobar(nombre, dic);
-            if (nombre == "#")
+            if (nombre == "")
                 {
                     break;
                 }
@@ -289,7 +310,7 @@ namespace prueba
             double precio = double.Parse(Console.ReadLine()!);
             Console.WriteLine("Ahora digite la cantidad del producto añadido \n . . .");
             int cantidad = int.Parse(Console.ReadLine()!);
-            Console.WriteLine($"¿Desea agregar {cantidad} de {nombre} por {precio}?. . . \n 1. Si \n 2. No");
+            Console.WriteLine($"¿Desea agregar {cantidad} de {nombre} por ${precio}?. . . \n 1. Si \n 2. No");
             confirmar = Console.ReadLine()!;
             if (confirmar == "1" || confirmar == "Si")
             {
@@ -334,13 +355,13 @@ namespace prueba
             do
             {
                 Dictionary<string, Dictionary<double, int>> dic = Inventario_Principal(ruta);
-                Console.WriteLine("Digite el nombre del producto que desea eliminar \n . . . Si no desea eliminar ningún producto, escriba #");
+                Console.WriteLine("Digite el nombre del producto que desea eliminar \n . . . Si no desea eliminar ningún producto, presione Enter");
                 foreach (string producto in dic.Keys.ToList())
                 {
                     Console.WriteLine($"// {numerador += 1} {producto} ${dic[producto].ElementAt(0).Key} - - {dic[producto].ElementAt(0).Value} Und. . .");
                 }
             string nombre = Console.ReadLine()!;
-            if (nombre == "#")
+            if (nombre == "")
                 {
                     break;
                 }
