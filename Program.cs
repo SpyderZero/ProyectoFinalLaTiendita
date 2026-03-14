@@ -405,9 +405,9 @@ namespace prueba
         public static Dictionary<string, Dictionary<double, int>> Inventario_Principal (string ruta)
         {
             Dictionary<string, Dictionary<double, int>> Inventario = new Dictionary<string, Dictionary<double, int>>();
+
             if (File.Exists(ruta))
-            {
-                using (StreamReader sr = new StreamReader(ruta))
+                {using (StreamReader sr = new StreamReader(ruta))
                 {
                     string linea;
 
@@ -420,8 +420,7 @@ namespace prueba
                         Inventario.Add(datos[0], dic);
                     }
                 }
-            }
-
+                }
             return Inventario;
         }
         static public Dictionary<double, int> crear_dic (double precio, int cantidad)
