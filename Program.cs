@@ -42,11 +42,10 @@ namespace prueba
         {
             
             List<string> factura = new List<string>();
-            List<int> Cantidades = new List<int>();
+            List<int> Lista_cantidades = new List<int>();
             string nombre = "";
             bool confirm = false;
             double suma = 0;
-            int cantidad_compra = 0;
             int num = 0;
             do
             {
@@ -74,28 +73,37 @@ namespace prueba
                 else if (confirm == true && int.TryParse(nombre, out numerador) == false)
                 {    
                     factura.Add(nombre);
-                    Console.WriteLine("Digite la cantidad de compra: \n . . .");
-                    int.TryParse(Console.ReadLine()!, out cantidad_compra);
-                    Cantidades.Add(cantidad_compra);
+                    Lista_cantidades.Add(Cantidades(nombre, dic));
+                    if (Lista_cantidades.Contains(0) == true)
+                {
+                    Console.WriteLine("Producto no registrado o con existencia en 0, favor de reintentar");
+                    continue;
+                }
                 }
                 else if (confirm == true && int.TryParse(nombre, out numerador) == true)
                 {
                     factura.Add(dic.ElementAt(numerador - 1).Key);
-                    Console.WriteLine("Digite la cantidad de compra: \n . . .");
-                    int.TryParse(Console.ReadLine()!, out cantidad_compra);
-                    Cantidades.Add(cantidad_compra);
+                    Lista_cantidades.Add(Cantidades(dic.ElementAt(numerador - 1).Key, dic));
+                    if (Lista_cantidades.Contains(0) == true)
+                {
+                    Console.WriteLine("Producto no registrado o con existencia en 0, favor de reintentar");
+                    continue;
+                }
                 }
                 else if (confirm == false)
                 {
                     Console.WriteLine("Producto no registrado o con existencia en 0, favor de reintentar");
                     continue;
                 }
-                if (nombre != "") continue;
+                if (nombre != "") 
+                {
+                    continue;
+                }
 
                 foreach (string producto in factura)
                 {
                     if (producto == "") break;
-                    Console.WriteLine($"{Cantidades[num]} -- -- {producto}. . .");
+                    Console.WriteLine($"{Lista_cantidades[num]} -- -- {producto}. . .");
                     num += 1;
                 }
 
@@ -109,12 +117,12 @@ namespace prueba
                         foreach (string producto in factura)
                         {
                             int cantidad = dic[producto].ElementAt(0).Value;
-                            cantidad -= Cantidades[num];
+                            cantidad -= Lista_cantidades[num];
                             string datos = $"{producto},{dic[producto].ElementAt(0).Key},{cantidad}";
                             int index = Lista.IndexOf(producto);
                             cambia_linea(datos, ruta, index,0);
-                            suma += dic[producto].ElementAt(0).Key * Cantidades[num];
-                            Console.WriteLine($"{producto} {Cantidades[num]}\n ${dic[producto].ElementAt(0).Key}");
+                            suma += dic[producto].ElementAt(0).Key * Lista_cantidades[num];
+                            Console.WriteLine($"{producto} {Lista_cantidades[num]}\n ${dic[producto].ElementAt(0).Key}");
                             num += 1;
                         }
                     Console.WriteLine($"Su total es de: ${suma} \n // ¡Gracias por su compra!");
@@ -125,6 +133,19 @@ namespace prueba
                     nombre = "";
                     }
             }while(nombre != "");
+        }
+        static int Cantidades (string producto, Dictionary<string, Dictionary<double, int>> dic)
+        {
+            int cantidad = 0;
+            int cantidad_compra;
+            Console.WriteLine("Digite la cantidad de compra: \n . . .");
+            int.TryParse(Console.ReadLine()!, out cantidad_compra);
+
+            if (dic[producto].ElementAt(0).Value > 0)
+            {
+                cantidad = cantidad_compra;
+            }
+            return cantidad;
         }
         static void cambia_linea(string datos, string ruta, int linea_selec, int valor)
         {       
