@@ -68,7 +68,7 @@ namespace prueba
                 }
                 if (nombre == "#")
                 {
-                  
+                    
                 }
                 else if (confirm == true && int.TryParse(nombre, out numerador) == false)
                 {    
@@ -156,7 +156,7 @@ namespace prueba
             bool valor_f = false;
             var Productos = dic.Keys.ToList();
             producto -= 1;
-            if (producto> 0 && producto < Productos.Capacity)
+            if (producto>= 0 && producto < Productos.Capacity)
             {
                 valor_f = Productos.Contains(dic.ElementAt(producto).Key);        
             }
