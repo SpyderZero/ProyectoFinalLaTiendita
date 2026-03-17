@@ -9,35 +9,35 @@ namespace prueba
         public static void Main()
         {
             string ruta = "src/Inventario.csv";
-            int selec_menu = 0;
+            string selec_menu = "";
             Dictionary<string, Dictionary<double, int>> Inventario = Funciones.Inventario_Principal(ruta);
 
             do
             {Console.WriteLine("Sistema de Inventario Colmado Cocoa Lider \n 1. Facturar productos \n 2. Conduce de producto \n 3. Existencia Inventario \n 4. Salir");
-            selec_menu = int.Parse(Console.ReadLine()!);
+            selec_menu = Console.ReadLine()!;
             switch (selec_menu)
             {
-                case 1:
+                case "1":
                 Facturar(ruta);
                 break;
                 
-                case 2:
+                case "2":
                 Conduce_Producto(ruta);
                 break;
 
-                case 3:
+                case "3":
                 ListaProducts(ruta);
                 break;
 
-                case 4:
+                case "4":
                 break;
 
                 default:
                 Console.WriteLine("Comando no identificado, intente de nuevo. . .");
-                if (selec_menu != 1 && selec_menu != 2 && selec_menu != 3) continue;
+                if (selec_menu != "1" && selec_menu != "2" && selec_menu != "3") continue;
                 break;
             }
-            }while(selec_menu != 4);
+            }while(selec_menu != "4");
         }
         static public void Facturar(string ruta)
         {
